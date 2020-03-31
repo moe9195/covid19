@@ -2,49 +2,10 @@ import React, { Component } from "react";
 import Plot from "react-plotly.js";
 import axios from "axios";
 import colormap from "colormap";
+import countryData from "./countries";
 
-const countries = [
-  "DZA",
-  "KWT",
-  "BHR",
-  "EGY",
-  "IRQ",
-  "JOR",
-  "LBN",
-  "LBY",
-  "MAR",
-  "OMN",
-  "QAT",
-  "SAU",
-  "SYR",
-  "TUN",
-  "ARE",
-  "SDN"
-];
-
-const countriesFull = [
-  "Algeria",
-  "Kuwait",
-  "Bahrain",
-  "Egypt",
-  "Iraq",
-  "Jordan",
-  "Lebanon",
-  "Libya",
-  "Morocco",
-  "Oman",
-  "Qatar",
-  "Saudi Arabia",
-  "Syria",
-  "Tunisia",
-  "UAE",
-  "Sudan"
-];
-
-const isoDictionary = {};
-for (let i = 0; i < countries.length; i++) {
-  isoDictionary[countries[i]] = countriesFull[i];
-}
+const countries = countryData[0];
+const countriesFull = countryData[1];
 
 const instance = axios.create({
   baseURL: "https://covidapi.info/api/v1/"
@@ -191,13 +152,13 @@ class TimeGraph extends Component {
       };
       scatterData.push(trace);
     }
-    console.log("test");
-    var tickvals = [0],
-      ticktxt = [0];
-    if (plotDataX.length > 1 && dateArr.length > 1) {
-      tickvals = this.setupTicks(plotDataX[1], 25, false);
-      ticktxt = this.setupTicks(dateArr, 25, true);
-    }
+    // console.log("test");
+    // var tickvals = [0],
+    //   ticktxt = [0];
+    // if (plotDataX.length > 1 && dateArr.length > 1) {
+    //   tickvals = this.setupTicks(plotDataX[1], 25, false);
+    //   ticktxt = this.setupTicks(dateArr, 25, true);
+    // }
 
     let logType = this.state.logarithmic ? "log" : "null";
     const colorway = colormap({
@@ -208,7 +169,7 @@ class TimeGraph extends Component {
     });
 
     return (
-      <div className="container-fluid">
+      <div style={{ width: "100%", height: "100%" }}>
         <br></br>
         {buttons}
         <div class="custom-control custom-switch">
@@ -224,24 +185,26 @@ class TimeGraph extends Component {
             Logarithmic
           </label>
         </div>
-
-        <Plot
-          data={scatterData}
-          layout={{
-            title: `${this.capitalizeFirstLetter(this.state.selector)}`,
-            height: 600,
-            width: 800,
-            font: { color: "white", size: 12 },
-            xaxis: {
-              title: "Date",
-              nticks: 15
-            },
-            yaxis: { title: "Number", type: logType },
-            colorway: colorway,
-            plot_bgcolor: "#161616",
-            paper_bgcolor: "#161616"
-          }}
-        />
+        <div>
+          <Plot
+            data={scatterData}
+            layout={{
+              title: `Total ${this.capitalizeFirstLetter(this.state.selector)}`,
+              font: { color: "white", size: 12 },
+              xaxis: {
+                title: "Date",
+                nticks: 15
+              },
+              yaxis: { title: "Number", type: logType },
+              colorway: colorway,
+              plot_bgcolor: "#161616",
+              paper_bgcolor: "#161616",
+              autosize: true
+            }}
+            useResizeHandler={true}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
       </div>
     );
   }

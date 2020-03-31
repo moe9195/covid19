@@ -2,29 +2,12 @@ import React, { Component } from "react";
 import Plot from "react-plotly.js";
 import axios from "axios";
 import colormap from "colormap";
+import countryData from "./countries";
 
 const instance = axios.create({
   baseURL: "https://covid19.mathdro.id/api/confirmed"
 });
-
-const countries = [
-  "Algeria",
-  "Kuwait",
-  "Bahrain",
-  "Egypt",
-  "Iraq",
-  "Jordan",
-  "Lebanon",
-  "Libya",
-  "Morocco",
-  "Oman",
-  "Qatar",
-  "Saudi Arabia",
-  "Syria",
-  "Tunisia",
-  "United Arab Emirates",
-  "Sudan"
-];
+const countries = countryData[0];
 
 class PieChart extends Component {
   state = {
@@ -100,7 +83,7 @@ class PieChart extends Component {
         },
         title:
           this.state.selector === "confirmed"
-            ? "Total Cases"
+            ? "Total Confirmed"
             : this.state.selector === "deaths"
             ? "Total Deaths"
             : "Total Recoveries"
@@ -114,7 +97,7 @@ class PieChart extends Component {
     });
 
     return (
-      <div className="container-fluid">
+      <div style={{ width: "100%", height: "100%" }}>
         <br></br>
         {buttons}
         <br />
@@ -123,12 +106,14 @@ class PieChart extends Component {
           layout={{
             font: { color: "white", size: 14 },
             showlegend: false,
-            height: 670,
-            width: 670,
+
             colorway: colorway.reverse(),
             plot_bgcolor: "#161616",
-            paper_bgcolor: "#161616"
+            paper_bgcolor: "#161616",
+            autosize: true
           }}
+          useResizeHandler={true}
+          style={{ width: "100%", height: "100%" }}
         />
       </div>
     );
