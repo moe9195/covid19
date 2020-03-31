@@ -7,8 +7,8 @@ import "./index.css";
 
 const App = () => (
   <div className="App">
-    {/* <PieChart /> */}
-    {/* <TimeGraph /> */}
+    <PieChart />
+    <TimeGraph />
     <Counter />
   </div>
 );

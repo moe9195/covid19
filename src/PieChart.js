@@ -7,7 +7,7 @@ import countryData from "./countries";
 const instance = axios.create({
   baseURL: "https://covid19.mathdro.id/api/confirmed"
 });
-const countries = countryData[0];
+const countries = countryData[1];
 
 class PieChart extends Component {
   state = {

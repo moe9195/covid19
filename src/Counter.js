@@ -104,6 +104,7 @@ class Counter extends Component {
             <tbody>{this.state.loading1 ? "" : rows}</tbody>
           </table>
         </div>
+        <br></br>
       </div>
     );
   }
