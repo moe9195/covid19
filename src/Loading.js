@@ -9,7 +9,22 @@ const Loading = () => (
     <br />
     <br />
     <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <FontAwesomeIcon icon={faSpinner} spin size="4x" />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 );
 

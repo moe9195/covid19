@@ -13,6 +13,9 @@
   background-color: #161616 !important;
   overflow: auto;
 }
+.modebar {
+  display: none !important;
+}
 
 .no-highlight {
   -webkit-font-smoothing: antialiased;

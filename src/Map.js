@@ -13,10 +13,10 @@ const Map = ({ covidData }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = (countryData) => {
-    setShow(true);
     let country = fetchCountry(countryData);
     if (country) {
       setCountry(country);
+      setShow(true);
     }
   };
 
@@ -36,7 +36,7 @@ const Map = ({ covidData }) => {
       countryNames.push(countryName);
       confirmedList.push(country[countryName].confirmed);
     });
-    let scaledData = confirmedList.map((num) => Math.pow(num, 0.4));
+    let scaledData = confirmedList.map((num) => Math.pow(num, 0.3));
     data = [
       {
         type: "scattergeo",
@@ -48,13 +48,6 @@ const Map = ({ covidData }) => {
           size: scaledData,
           color: "rgba(255,0,0,0.75)",
           sizeref: 1,
-
-          colorscale: "Greens",
-          colorbar: {
-            title: "Some rate",
-            ticksuffix: "%",
-            showticksuffix: "last",
-          },
           line: {
             color: "black",
           },
@@ -97,17 +90,22 @@ const Map = ({ covidData }) => {
         layout={{
           geo: {
             scope: "World",
-            resolution: "100",
+            resolution: "200",
             showland: true,
             landcolor: "#161616",
+            showframe: false,
+            bgcolor: "#161616",
             showcountries: true,
             showocean: true,
-            lonaxis: {
-              range: [-20, 65],
-            },
-            lataxis: {
-              range: [8, 40],
-            },
+            // projection: {
+            //   type: "mercator",
+            // },
+            // lonaxis: {
+            //   range: [-160, 65],
+            // },
+            // lataxis: {
+            //   range: [-40, 90],
+            // },
 
             oceancolor: "#030217",
           },

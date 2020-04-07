@@ -144,7 +144,10 @@ class TimeGraph extends Component {
         ? 0
         : this.state.selector === "deaths"
         ? 1
-        : 2;
+        : this.state.selector === "recovered"
+        ? 2
+        : 3;
+
     for (let i = 1; i < plotDataX.length + 1; i++) {
       var trace = {
         x: dateArr,
@@ -206,6 +209,7 @@ class TimeGraph extends Component {
               plot_bgcolor: "#161616",
               paper_bgcolor: "#161616",
               autosize: true,
+              hovermode: "closest",
             }}
             useResizeHandler={true}
             style={{ width: "100%", height: "100%" }}
