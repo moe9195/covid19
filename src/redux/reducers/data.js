@@ -1,13 +1,18 @@
-import { SET_COUNTRY } from "../actions/actionTypes";
+import { SET_DATA, LOADING } from "../actions/actionTypes";
 
-const initialState = { countryData: null };
+const initialState = { countryData: null, loading: true };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_COUNTRY:
+    case SET_DATA:
       return {
         ...state,
-        countryData: action.payload
+        data: action.payload,
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;

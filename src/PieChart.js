@@ -3,23 +3,25 @@ import Plot from "react-plotly.js";
 import axios from "axios";
 import colormap from "colormap";
 import countryData from "./countries";
+import Loading from "./Loading";
 
 const instance = axios.create({
-  baseURL: "https://covid19.mathdro.id/api/confirmed"
+  baseURL: "https://covid19.mathdro.id/api/confirmed",
 });
 const countries = countryData[1];
 
 class PieChart extends Component {
   state = {
     selector: "confirmed",
-    data: null
+    data: null,
+    loading: true,
   };
 
   fetchCountriesDataSummary = async () => {
     try {
       let response = await instance.get(``);
       let data = response.data;
-      this.setState({ data: data });
+      this.setState({ data: data, loading: false });
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +34,7 @@ class PieChart extends Component {
   getCountry = () => {
     const countriesObj = this.state.data;
     if (countriesObj) {
-      const result = countriesObj.filter(country =>
+      const result = countriesObj.filter((country) =>
         countries.includes(country.countryRegion)
       );
       return result;
@@ -49,7 +51,7 @@ class PieChart extends Component {
     return [values, labels];
   };
 
-  handleOnClick = selected => {
+  handleOnClick = (selected) => {
     this.setState({ selector: selected });
   };
 
@@ -58,12 +60,12 @@ class PieChart extends Component {
 
     const selectors = ["confirmed", "deaths", "recovered"];
 
-    const buttons = selectors.map(selector => (
+    const buttons = selectors.map((selector) => (
       <button
         className={
           this.state.selector === selector
-            ? "btn btn-outline-light active"
-            : "btn btn-outline-light"
+            ? "btn btn-outline-dark clicked"
+            : "btn btn-outline-dark"
         }
         onClick={() => this.handleOnClick(selector)}
       >
@@ -76,45 +78,49 @@ class PieChart extends Component {
         values: plotData[0],
         labels: plotData[1],
         type: "pie",
-        textinfo: "label+value",
+        textinfo: "label",
         titlefont: {
           size: 24,
-          bold: true
+          bold: true,
         },
         title:
           this.state.selector === "confirmed"
             ? "Total Confirmed"
             : this.state.selector === "deaths"
             ? "Total Deaths"
-            : "Total Recoveries"
-      }
+            : "Total Recoveries",
+      },
     ];
     const colorway = colormap({
       colormap: "jet",
       nshades: countries.length,
       format: "hex",
-      alpha: 1
+      alpha: 1,
     });
-
+    if (this.state.loading) {
+      return <Loading />;
+    }
     return (
       <div style={{ width: "100%", height: "100%" }}>
         <br></br>
         {buttons}
         <br />
+        <br />
         <Plot
           data={data}
           layout={{
-            font: { color: "white", size: 14 },
+            font: { color: "#99aab5", size: 14 },
             showlegend: false,
 
             colorway: colorway.reverse(),
             plot_bgcolor: "#161616",
             paper_bgcolor: "#161616",
-            autosize: true
+            autosize: true,
           }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
-        />
+        />{" "}
+        <br /> <br /> <br /> <br />
       </div>
     );
   }

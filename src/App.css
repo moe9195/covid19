@@ -30,6 +30,44 @@
   overflow: auto;
 }
 
+.counter-nav {
+  width: 27rem;
+  font-size: 12px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.nav-tabs {
+  border-bottom: hidden;
+}
+
+.nav-link.active {
+  background-color: #343434 !important;
+  border-color: black !important;
+  border-style: solid !important;
+}
+
+.nav-link {
+  border: 1px solid !important;
+  border-color: black !important;
+  border-radius: 0 !important;
+  width: 33%;
+}
+
+.a {
+  color: #99aab5 !important;
+  background-color: gray !important;
+}
+
+a:-webkit-any-link {
+  color: #99aab5 !important;
+}
+
+.a:hover {
+  color: #99aab5 !important;
+  background-color: gray !important;
+}
+
 .counter {
   background-color: transparent !important;
   font-family: "Times";
@@ -38,8 +76,8 @@
   border-style: solid;
   border-width: 0.5rem;
   border-color: black;
-  border-bottom-left-radius: 0rem;
-  border-bottom-right-radius: 0rem;
+  border-radius: 0rem;
+  margin-left: 0rem !important;
 }
 .list {
   border-top-style: hidden;
@@ -53,6 +91,7 @@
   background-color: transparent;
   border-collapse: separate;
   border-spacing: 0px 6px;
+  color: #99aab5 !important;
 }
 
 tbody > tr > td {
@@ -61,4 +100,51 @@ tbody > tr > td {
 
 tr > td {
   padding-bottom: 6px;
+}
+
+.custom-switch .custom-control-label::before {
+  background-color: #99aab5 !important;
+  border-style: none;
+}
+
+.custom-switch .custom-control-label::after {
+  background-color: #161616 !important;
+  border-style: none;
+}
+
+.btn-outline-dark {
+  border: 1px solid !important;
+  border-color: black !important;
+  border-radius: 0rem;
+  color: #99aab5 !important;
+}
+
+.btn-outline-dark:active {
+  background-color: #343434 !important ;
+}
+.btn-outline-dark:focus {
+  box-shadow: 0 0 0 0.2rem #99aab5 !important;
+}
+
+.clicked {
+  border: 1px solid !important;
+  border-color: black !important;
+  border-radius: 0rem;
+  background-color: #343434 !important ;
+}
+
+.modal-content {
+  text-align: center !important;
+  align-content: center !important;
+  background-color: #161616 !important;
+}
+
+.modal-header {
+  background-color: #161616 !important;
+  border: hidden;
+}
+
+.modal-body {
+  display: block;
+  background-color: #161616 !important;
 }

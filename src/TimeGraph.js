@@ -3,22 +3,24 @@ import Plot from "react-plotly.js";
 import axios from "axios";
 import colormap from "colormap";
 import countryData from "./countries";
+import Loading from "./Loading";
 
 const countries = countryData[0];
 const countriesFull = countryData[1];
 
 const instance = axios.create({
-  baseURL: "https://covidapi.info/api/v1/"
+  baseURL: "https://covidapi.info/api/v1/",
 });
 
 class TimeGraph extends Component {
   state = {
     data: null,
     selector: "confirmed",
-    logarithmic: false
+    logarithmic: false,
+    loading: true,
   };
 
-  fetchCountriesData = async countries => {
+  fetchCountriesData = async (countries) => {
     try {
       let dict = {};
       for (let i = 0; i < countries.length; i++) {
@@ -26,13 +28,13 @@ class TimeGraph extends Component {
         let countryData = response.data.result;
         dict[countries[i]] = countryData;
       }
-      this.setState({ data: dict });
+      this.setState({ data: dict, loading: false });
     } catch (error) {
       console.error(error);
     }
   };
 
-  capitalizeFirstLetter = string => {
+  capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -47,7 +49,7 @@ class TimeGraph extends Component {
     }
   };
 
-  formatDate = date => {
+  formatDate = (date) => {
     if (date == 0) {
       return 0;
     }
@@ -63,7 +65,7 @@ class TimeGraph extends Component {
       "Sep",
       "Oct",
       "Nov",
-      "Dec"
+      "Dec",
     ];
 
     const mm = date.substring(5, 7);
@@ -85,7 +87,7 @@ class TimeGraph extends Component {
     return newArr;
   };
 
-  handleOnClick = selected => {
+  handleOnClick = (selected) => {
     this.setState({ selector: selected });
   };
   handleSwitch = () => {
@@ -95,12 +97,12 @@ class TimeGraph extends Component {
   render() {
     const selectors = ["confirmed", "deaths", "recovered"];
 
-    const buttons = selectors.map(selector => (
+    const buttons = selectors.map((selector) => (
       <button
         className={
           this.state.selector === selector
-            ? "btn btn-outline-light active"
-            : "btn btn-outline-light"
+            ? "btn btn-outline-dark clicked"
+            : "btn btn-outline-dark"
         }
         onClick={() => this.handleOnClick(selector)}
       >
@@ -148,10 +150,11 @@ class TimeGraph extends Component {
         x: dateArr,
         y: plotDataY[select][i],
         type: "scatter",
-        name: countriesFull[i - 1]
+        name: countriesFull[i - 1],
       };
       scatterData.push(trace);
     }
+
     // console.log("test");
     // var tickvals = [0],
     //   ticktxt = [0];
@@ -165,9 +168,12 @@ class TimeGraph extends Component {
       colormap: "jet",
       nshades: countries.length,
       format: "hex",
-      alpha: 1
+      alpha: 1,
     });
 
+    if (this.state.loading) {
+      return <Loading />;
+    }
     return (
       <div style={{ width: "100%", height: "100%" }}>
         <br></br>
@@ -190,21 +196,22 @@ class TimeGraph extends Component {
             data={scatterData}
             layout={{
               title: `Total ${this.capitalizeFirstLetter(this.state.selector)}`,
-              font: { color: "white", size: 12 },
+              font: { color: "#99aab5", size: 12 },
               xaxis: {
                 title: "Date",
-                nticks: 15
+                nticks: 15,
               },
               yaxis: { title: "Number", type: logType },
               colorway: colorway,
               plot_bgcolor: "#161616",
               paper_bgcolor: "#161616",
-              autosize: true
+              autosize: true,
             }}
             useResizeHandler={true}
             style={{ width: "100%", height: "100%" }}
           />
         </div>
+        <br /> <br /> <br /> <br />
       </div>
     );
   }

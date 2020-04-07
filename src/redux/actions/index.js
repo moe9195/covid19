@@ -1,1 +1,1 @@
-export { fetchCountryData } from "./data";
+export { fetchCountryData, setData, loading } from "./data";
