@@ -14,7 +14,34 @@
   overflow: auto;
 }
 .modebar {
-  display: none !important;
+  /* display: none !important; */
+
+  float: center !important;
+}
+
+.js-plotly-plot .plotly .modebar {
+  left: 50%;
+  transform: translateX(-60%);
+}
+
+footer.sticky-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100% !important;
+  height: 65px;
+  background-color: transparent;
+  line-height: 15px;
+}
+@media (min-width: 992px) {
+  footer.sticky-footer {
+    width: calc(100% - 250px);
+  }
+}
+@media (min-width: 992px) {
+  body.sidenav-toggled footer.sticky-footer {
+    width: calc(100% - 66px);
+  }
 }
 
 .no-highlight {
@@ -29,12 +56,13 @@
 
 .my-custom-scrollbar {
   position: relative;
-  height: 585px;
+  height: 58vh;
   overflow: auto;
 }
 
 .counter-nav {
-  width: 27rem;
+  padding: 1vh 1vh;
+  width: 37vh;
   font-size: 12px;
   margin-right: auto;
   margin-left: auto;
@@ -54,7 +82,7 @@
   border: 1px solid !important;
   border-color: black !important;
   border-radius: 0 !important;
-  width: 33%;
+  width: 33.3333333333333%;
 }
 
 .a {
@@ -74,10 +102,10 @@ a:-webkit-any-link {
 .counter {
   background-color: transparent !important;
   font-family: "Times";
-  padding: 1rem 1rem;
-  width: 25rem;
+  padding: 0vh 0vh;
+  width: 35vh;
   border-style: solid;
-  border-width: 0.5rem;
+  border-width: 0.5vh;
   border-color: black;
   border-radius: 0rem;
   margin-left: 0rem !important;

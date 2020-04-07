@@ -179,7 +179,6 @@ class TimeGraph extends Component {
     }
     return (
       <div style={{ width: "100%", height: "100%" }}>
-        <br></br>
         {buttons}
         <div class="custom-control custom-switch">
           <input
@@ -189,7 +188,7 @@ class TimeGraph extends Component {
             id="switch"
           />
           <br />
-          <br />
+
           <label class="custom-control-label" for="switch">
             Logarithmic
           </label>
@@ -198,6 +197,9 @@ class TimeGraph extends Component {
           <Plot
             data={scatterData}
             layout={{
+              modebar: {
+                bgcolor: "rgba(255,255,255,0)",
+              },
               title: `Total ${this.capitalizeFirstLetter(this.state.selector)}`,
               font: { color: "#99aab5", size: 12 },
               xaxis: {
@@ -210,9 +212,30 @@ class TimeGraph extends Component {
               paper_bgcolor: "#161616",
               autosize: true,
               hovermode: "closest",
+              legend: {
+                bgcolor: "#343434",
+                bordercolor: "#161616",
+                borderwidth: 2,
+                font: { size: 10 },
+                x: 0,
+                y: 1,
+                autosize: true,
+              },
+            }}
+            config={{
+              modeBarButtonsToRemove: [
+                "toggleSpikelines",
+                "zoomIn2d",
+                "zoomOut2d",
+                "autoScale2d",
+                "hoverClosestCartesian",
+                "hoverCompareCartesian",
+              ],
+              displaylogo: false,
             }}
             useResizeHandler={true}
             style={{ width: "100%", height: "100%" }}
+            modeBarButtonsToRemove={["toImage"]}
           />
         </div>
         <br /> <br /> <br /> <br />

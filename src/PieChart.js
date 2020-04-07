@@ -79,16 +79,15 @@ class PieChart extends Component {
         labels: plotData[1],
         type: "pie",
         textinfo: "label",
-        titlefont: {
-          size: 24,
-          bold: true,
+        title: {
+          text:
+            this.state.selector === "confirmed"
+              ? "Total Confirmed <br> "
+              : this.state.selector === "deaths"
+              ? "Total Deaths <br> "
+              : "Total Recoveries <br> ",
+          position: "  center",
         },
-        title:
-          this.state.selector === "confirmed"
-            ? "Total Confirmed"
-            : this.state.selector === "deaths"
-            ? "Total Deaths"
-            : "Total Recoveries",
       },
     ];
     const colorway = colormap({
@@ -102,13 +101,13 @@ class PieChart extends Component {
     }
     return (
       <div style={{ width: "100%", height: "100%" }}>
-        <br></br>
         {buttons}
-        <br />
-        <br />
         <Plot
           data={data}
           layout={{
+            modebar: {
+              bgcolor: "rgba(255,255,255,0)",
+            },
             font: { color: "#99aab5", size: 14 },
             showlegend: false,
 
@@ -117,10 +116,21 @@ class PieChart extends Component {
             paper_bgcolor: "#161616",
             autosize: true,
           }}
+          config={{
+            modeBarButtonsToRemove: [
+              "toggleSpikelines",
+              "zoomIn2d",
+              "zoomOut2d",
+              "autoScale2d",
+              "hoverClosestCartesian",
+              "hoverCompareCartesian",
+              "hoverClosestPie",
+            ],
+            displaylogo: false,
+          }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
         />{" "}
-        <br /> <br /> <br /> <br />
       </div>
     );
   }

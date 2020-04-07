@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Plot from "react-plotly.js";
 import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import countryData from "./countries";
 import CountryInfo from "./CountryInfo";
 
 const dictionary = countryData[4];
 
-const Map = ({ covidData }) => {
+const MapChart = ({ covidData }) => {
   const [show, setShow] = useState(false);
   const [country, setCountry] = useState(null);
 
@@ -56,6 +57,9 @@ const Map = ({ covidData }) => {
       },
     ];
   }
+  if (!covidData.data) {
+    return <Redirect to="/" />;
+  }
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <div style={{ width: "100%", height: "100%" }}>
@@ -88,6 +92,9 @@ const Map = ({ covidData }) => {
       <Plot
         data={data}
         layout={{
+          modebar: {
+            bgcolor: "rgba(255,255,255,0)",
+          },
           geo: {
             scope: "World",
             resolution: "200",
@@ -117,6 +124,20 @@ const Map = ({ covidData }) => {
         useResizeHandler={true}
         style={{ width: "100%", height: "100%" }}
         onClick={(data) => handleShow(data)}
+        config={{
+          modeBarButtonsToRemove: [
+            "toggleSpikelines",
+            "autoScale2d",
+            "hoverClosestCartesian",
+            "hoverCompareCartesian",
+            "select2d",
+            "lasso2d",
+            "hoverClosestGeo",
+            "zoomInGeo",
+            "zoomOutGeo",
+          ],
+          displaylogo: false,
+        }}
       />
     </div>
   );
@@ -128,4 +149,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps)(MapChart);

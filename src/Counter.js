@@ -237,7 +237,7 @@ class Counter extends Component {
       return <Loading />;
     }
     return (
-      <div>
+      <div className="counter-div">
         {" "}
         <div class="custom-control custom-switch">
           <input
@@ -255,10 +255,6 @@ class Counter extends Component {
           <Tabs defaultActiveKey="confirmed" id="counter">
             <Tab eventKey="confirmed" title="Confirmed">
               <div className="card mx-auto counter">
-                <h4>
-                  Confirmed <br></br>
-                </h4>
-
                 <h1 className="display-3" style={{ color: "red" }}>
                   {this.state.loading
                     ? ""
@@ -282,9 +278,6 @@ class Counter extends Component {
             </Tab>
             <Tab eventKey="deaths" title="Deaths">
               <div className="card mx-auto counter">
-                <h4>
-                  Deaths <br></br>
-                </h4>
                 <h1 className="display-3" style={{ color: "red" }}>
                   {this.state.loading
                     ? ""
@@ -309,9 +302,6 @@ class Counter extends Component {
             </Tab>
             <Tab eventKey="recovered" title="Recovered">
               <div className="card mx-auto counter">
-                <h4>
-                  Recovered <br></br>
-                </h4>
                 <h1 className="display-3" style={{ color: "red" }}>
                   {this.state.loading
                     ? ""

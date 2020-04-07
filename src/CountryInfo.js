@@ -49,9 +49,9 @@ const CountryInfo = ({ country }) => {
       Y4temp = [];
     for (var key in data) {
       Xtemp.push(key);
-      Y1temp.push(data[key].confirmed + 1);
-      Y2temp.push(data[key].deaths + 1);
-      Y3temp.push(data[key].recovered + 1);
+      Y1temp.push(data[key].confirmed);
+      Y2temp.push(data[key].deaths);
+      Y3temp.push(data[key].recovered);
     }
     if (Xtemp.length > 1) {
       setX(Xtemp);
@@ -110,6 +110,9 @@ const CountryInfo = ({ country }) => {
         <Plot
           data={plotData}
           layout={{
+            modebar: {
+              bgcolor: "rgba(255,255,255,0)",
+            },
             title: `${dictionary[country]}`,
             font: { color: "#99aab5", size: 12 },
             xaxis: {
@@ -124,6 +127,19 @@ const CountryInfo = ({ country }) => {
           }}
           useResizeHandler={true}
           style={{ width: "100%", height: "100%" }}
+          config={{
+            modeBarButtonsToRemove: [
+              "toggleSpikelines",
+              "zoomIn2d",
+              "zoomOut2d",
+              "autoScale2d",
+              "hoverClosestCartesian",
+              "hoverCompareCartesian",
+              "select2d",
+              "lasso2d",
+            ],
+            displaylogo: false,
+          }}
         />
       </div>
     );
